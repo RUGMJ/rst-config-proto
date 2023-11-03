@@ -6,11 +6,11 @@ import tools.redstone.config.options.IntOption;
 import tools.redstone.config.options.StringOption;
 
 public class TestFeature extends Feature {
-    public static final Option<Boolean> superLongButAwesomeOption = Option.ofType(new BooleanOption());
-    public static final Option<Boolean> undefinedOption = Option.ofType(new BooleanOption()).withDefault(false);
-    public static final Option<Boolean> undefinedOptionWithNoDefault = Option.ofType(new BooleanOption());
-    public static final Option<Integer> intOption = Option.ofType(new IntOption(0, 100)).withDefault(69);
-    public static final Option<String> optionWithDisplayName = Option.ofType(new StringOption())
+    public static final Option<Boolean> superLongButAwesomeOption = Option.ofType(new BooleanOption(), false);
+    public static final Option<Boolean> undefinedOption = Option.ofType(new BooleanOption(), false);
+    public static final Option<Boolean> undefinedOptionWithNoDefault = Option.ofType(new BooleanOption(), false);
+    public static final Option<Integer> intOption = Option.ofType(new IntOption(0, 100), 69);
+    public static final Option<String> optionWithDisplayName = Option.ofType(new StringOption(), "")
             .withDisplay("Fancy Display Name");
 
     public void execute() {

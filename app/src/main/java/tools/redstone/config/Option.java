@@ -3,18 +3,19 @@ package tools.redstone.config;
 import javax.annotation.Nullable;
 
 public class Option<T> {
-    public static <T> Option<T> ofType(IOption<T> type) {
-        return new Option<>(type);
+    public static <T> Option<T> ofType(IOption<T> type, T defaultValue) {
+        return new Option<>(type, defaultValue);
     }
 
     private final IOption<T> type;
     private String key;
     private String displayName;
 
-    private T defaultValue;
+    private final T defaultValue;
 
-    private Option(IOption<T> type) {
+    private Option(IOption<T> type, T defaultValue) {
         this.type = type;
+        this.defaultValue = defaultValue;
     }
 
     public Option<T> withKey(String key) {
@@ -24,11 +25,6 @@ public class Option<T> {
 
     public Option<T> withDisplay(String display) {
         displayName = display;
-        return this;
-    }
-
-    public Option<T> withDefault(T defaultValue) {
-        this.defaultValue = defaultValue;
         return this;
     }
 
