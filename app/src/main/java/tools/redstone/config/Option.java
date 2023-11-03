@@ -1,6 +1,9 @@
 package tools.redstone.config;
 
+import tools.redstone.config.format.IConfigSection;
+
 import javax.annotation.Nullable;
+import java.util.stream.Collectors;
 
 public class Option<T> {
     public static <T> Option<T> ofType(IOption<T> type, T defaultValue) {
@@ -8,14 +11,16 @@ public class Option<T> {
     }
 
     private final IOption<T> type;
+    private final T defaultValue;
     private String key;
     private String displayName;
 
-    private final T defaultValue;
+    private T value;
 
     private Option(IOption<T> type, T defaultValue) {
         this.type = type;
         this.defaultValue = defaultValue;
+        this.value = defaultValue;
     }
 
     public Option<T> withKey(String key) {
@@ -28,19 +33,13 @@ public class Option<T> {
         return this;
     }
 
-    @Nullable
+    public void loadValue(IConfigSection config) {
+        this.value = config.getValue(this.key, this.getSerializer())
+                .orElse(defaultValue);
+    }
+
     public T getValue() {
-        var string = Config.getOption(key);
-
-        if (defaultValue != null && string == null) {
-            return defaultValue;
-        }
-
-        if (string == null) {
-            return null;
-        }
-
-        return type.getSerializer().deserialize(string);
+        return value;
     }
 
     public String getKey() {
