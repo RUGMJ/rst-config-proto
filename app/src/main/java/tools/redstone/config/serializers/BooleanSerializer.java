@@ -17,7 +17,13 @@ public class BooleanSerializer implements ISerializer<Boolean> {
 
     @Override
     public Boolean deserialize(String string) {
-        return string.equals("true");
+        if (string.equals("true")) {
+            return true;
+        } else if (string.equals("false")) {
+            return false;
+        }
+
+        throw new RuntimeException("Invalid boolean '" + string + "'");
     }
 
     @Override
